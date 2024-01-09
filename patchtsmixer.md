@@ -2,6 +2,10 @@
 title: "PatchTSMixer in HuggingFace"
 thumbnail: /blog/assets/patchtsmixer/thumbnail.png
 authors:
+- user: ajati
+- user: vijaye12
+- user: namctin
+- user: wgifford
 - user: kashif
 ---
 
@@ -26,6 +30,28 @@ In this [HuggingFace implementation](https://huggingface.co/docs/transformers/ma
 `Blog authors`: Arindam Jati, Vijay Ekambaram, Nam Ngugen, Wesley Gifford and Kashif Rasul
 
 <!-- #endregion -->
+
+## PatchTSMixer Quick Overview 
+#### Skip this section if you are familiar with `PatchTSMixer`!
+`PatchTSMixer` patches a given input multivariate time series into a sequence of patches or windows. Subsequently, it passes the series to an embedding layer, which generates a multi-dimensional tensor.
+
+<img src="assets/patchtsmixer/overview/1.gif" width="640" height="360"/>
+
+The multi-dimensional tensor is subsequently passed to the `PatchTSMixer` backbone, which is composed of a sequence of [MLP Mixer](https://arxiv.org/abs/2105.01601) layers. Each MLP Mixer layer learns inter-patch, intra-patch, and inter-channel correlations through a series of permutation and MLP operations.
+
+<img src="assets/patchtsmixer/overview/2.gif" width="640" height="360"/>
+
+`PatchTSMixer` also employs residual connections and gated attentions to prioritize of important features.
+
+<img src="assets/patchtsmixer/overview/3.gif" width="640" height="360"/>
+
+Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backbone. 
+
+<img src="assets/patchtsmixer/overview/4.gif" width="640" height="360"/>
+
+`PatchTSMixer` has a modular design to seamlessly support masked time series pre-training as well as direct time series forecasting.
+
+<img src="assets/patchtsmixer/overview/5.gif" width="640" height="360"/>
 
 ## Part 1: Forecasting on Electricity dataset
 
